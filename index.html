@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FRS | SNA Monitoring Platform – 2026</title>
+  <link rel="icon" href="assets/bank-logo.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <canvas id="particleCanvas" class="particle-canvas" aria-hidden="true"></canvas>
+
+  <div class="presentation">
+    <!-- Progress bar -->
+    <div class="progress-bar">
+      <div class="progress-fill" id="progressFill"></div>
+    </div>
+
+    <!-- Top toolbar -->
+    <div class="toolbar">
+      <button class="toolbar-btn" id="menuBtn" aria-label="Open navigation menu" title="Menu (M)">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+      <span class="toolbar-title" id="toolbarTitle">Title</span>
+      <div class="toolbar-actions">
+        <button class="toolbar-btn" id="autoplayBtn" aria-label="Toggle autoplay" title="Autoplay (P)">
+          <svg class="icon-play" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          <svg class="icon-pause hidden" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/></svg>
+        </button>
+        <button class="toolbar-btn" id="fullscreenBtn" aria-label="Toggle fullscreen" title="Fullscreen (F)">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 00-2 2v3m18 0V5a2 2 0 00-2-2h-3m0 18h3a2 2 0 002-2v-3M3 16v3a2 2 0 002 2h3"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Sidebar navigation -->
+    <aside class="sidebar" id="sidebar" aria-label="Slide navigation">
+      <div class="sidebar-header">
+        <div class="sidebar-brand">
+          <img src="assets/ind-emblem.png" alt="" class="sidebar-logo">
+          <img src="assets/maha-emblem.png" alt="" class="sidebar-logo">
+        </div>
+        <h3>FRS Navigation</h3>
+        <button class="sidebar-close" id="sidebarClose" aria-label="Close menu">&times;</button>
+      </div>
+      <div class="sidebar-bank">
+        <img src="assets/bank-logo.png" alt="Bank of Maharashtra" class="sidebar-bank-logo">
+      </div>
+      <nav class="sidebar-nav" id="sidebarNav"></nav>
+    </aside>
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Detail modal -->
+    <div class="detail-modal" id="detailModal" role="dialog" aria-modal="true" aria-hidden="true">
+      <div class="modal-backdrop" id="modalBackdrop"></div>
+      <div class="modal-content">
+        <button class="modal-close" id="modalClose" aria-label="Close">&times;</button>
+        <div class="modal-icon" id="modalIcon"></div>
+        <img id="modalLogo" class="modal-logo hidden" alt="">
+        <h3 id="modalTitle"></h3>
+        <p id="modalBody"></p>
+      </div>
+    </div>
+
+    <!-- Toast container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Navigation -->
+    <nav class="nav-controls">
+      <button class="nav-btn" id="prevBtn" aria-label="Previous slide">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+      <span class="slide-counter"><span id="currentSlide">1</span> / <span id="totalSlides">1</span></span>
+      <button class="nav-btn" id="nextBtn" aria-label="Next slide">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+      </button>
+    </nav>
+
+    <!-- Slide overview -->
+    <button class="overview-toggle" id="overviewToggle" aria-label="Slide overview">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/>
+        <rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>
+      </svg>
+    </button>
+
+    <div class="overview-panel" id="overviewPanel"></div>
+
+    <!-- Slide dots -->
+    <div class="slide-dots" id="slideDots"></div>
+
+    <!-- Slides container -->
+    <div class="slides-container" id="slidesContainer">
+
+      <!-- Slide 1: Title -->
+      <section class="slide slide-title active" data-title="Title">
+        <div class="slide-inner">
+          <div class="title-glow" aria-hidden="true"></div>
+          <div class="title-badge">Functional Requirement Specification</div>
+          <h1 class="main-title">SNA Monitoring, Beneficiary Transaction Tracking, Reconciliation &amp; MIS Platform</h1>
+          <p class="scheme-name">पुण्यश्लोक अहिल्यादेवी होळकर शेतकरी कर्जमुक्ती योजना – 2026</p>
+          <div class="title-meta">
+            <div class="meta-card">
+              <span class="meta-label">Prepared For</span>
+              <span class="meta-value">Department of Cooperation<br>Government of Maharashtra</span>
+            </div>
+            <div class="meta-card">
+              <span class="meta-label">Prepared By</span>
+              <span class="meta-value">Bank of Maharashtra</span>
+            </div>
+            <div class="meta-card">
+              <span class="meta-label">Version</span>
+              <span class="meta-value">1.0</span>
+            </div>
+            <div class="meta-card">
+              <span class="meta-label">Date</span>
+              <span class="meta-value">June 2026</span>
+            </div>
+          </div>
+        </div>
+        <div class="slide-footer slide-footer-dark">
+          <div class="footer-left">
+            <img src="assets/ind-emblem.png" alt="" class="footer-logo" aria-hidden="true">
+            <img src="assets/maha-emblem.png" alt="" class="footer-logo" aria-hidden="true">
+            <span class="footer-text">FRS v1.0 · June 2026</span>
+          </div>
+          <span class="footer-confidential">Confidential</span>
+          <div class="footer-right">
+            <img src="assets/bank-logo.png" alt="Bank of Maharashtra" class="footer-logo footer-logo-bank">
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 2: Agenda -->
+      <section class="slide slide-agenda" data-title="Agenda">
+        <div class="slide-inner">
+          <span class="section-tag">Overview</span>
+          <h2>Agenda</h2>
+          <div class="agenda-grid">
+            <button type="button" class="agenda-item interactive-card" data-goto="2"><span class="agenda-num">01</span><span>Introduction &amp; Background</span><span class="agenda-arrow">→</span></button>
+            <button type="button" class="agenda-item interactive-card" data-goto="3"><span class="agenda-num">02</span><span>Objectives</span><span class="agenda-arrow">→</span></button>
+            <button type="button" class="agenda-item interactive-card" data-goto="4"><span class="agenda-num">03</span><span>Project Scope</span><span class="agenda-arrow">→</span></button>
+            <button type="button" class="agenda-item interactive-card" data-goto="6"><span class="agenda-num">04</span><span>Stakeholders</span><span class="agenda-arrow">→</span></button>
+            <button type="button" class="agenda-item interactive-card" data-goto="7"><span class="agenda-num">05</span><span>Functional Modules</span><span class="agenda-arrow">→</span></button>
+            <button type="button" class="agenda-item interactive-card" data-goto="13"><span class="agenda-num">06</span><span>Reporting Framework</span><span class="agenda-arrow">→</span></button>
+            <button type="button" class="agenda-item interactive-card" data-goto="15"><span class="agenda-num">07</span><span>User Management &amp; Security</span><span class="agenda-arrow">→</span></button>
+            <button type="button" class="agenda-item interactive-card" data-goto="17"><span class="agenda-num">08</span><span>Expected Outcomes</span><span class="agenda-arrow">→</span></button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 3: Introduction -->
+      <section class="slide" data-title="Introduction">
+        <div class="slide-inner">
+          <span class="section-tag">Section 1</span>
+          <h2>Introduction</h2>
+          <h3 class="sub-heading">1.1 Background</h3>
+          <div class="content-block">
+            <p>The Government of Maharashtra has announced the <strong>"पुण्यश्लोक अहिल्यादेवी होळकर शेतकरी कर्जमुक्ती योजना – 2026"</strong> for providing loan waiver benefits, One-Time Settlement (OTS) benefits and incentive benefits to eligible farmers across the State.</p>
+          </div>
+          <div class="two-col">
+            <div class="info-card accent-orange flip-card interactive-card" tabindex="0" data-modal-title="MahaIT Platform" data-modal-body="Handles scheme implementation, beneficiary onboarding, eligibility validation, Aadhaar verification, Agristack validation and sanctioning processes for the loan waiver scheme." data-modal-icon="🏛️">
+              <div class="flip-inner">
+                <div class="flip-front">
+                  <div class="card-icon">🏛️</div>
+                  <h4>MahaIT Platform</h4>
+                  <p>Scheme implementation, beneficiary onboarding, eligibility validation, Aadhaar verification, Agristack validation and sanctioning processes.</p>
+                  <span class="card-hint">Click to learn more</span>
+                </div>
+                <div class="flip-back">
+                  <div class="card-icon">🏛️</div>
+                  <h4>Core Responsibilities</h4>
+                  <ul class="flip-list">
+                    <li>Beneficiary registration</li>
+                    <li>Eligibility &amp; Aadhaar checks</li>
+                    <li>Scheme approval workflow</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="info-card accent-green flip-card interactive-card" tabindex="0" data-modal-title="Bank of Maharashtra" data-modal-body="Provides centralized monitoring of fund flow, beneficiary transaction processing, SNA account monitoring, reconciliation, MIS, and analytical reporting." data-modal-icon="🏦">
+              <div class="flip-inner">
+                <div class="flip-front">
+                  <div class="card-icon">🏦</div>
+                  <h4>Bank of Maharashtra</h4>
+                  <p>Centralized platform for monitoring fund flow, beneficiary transaction processing, SNA account monitoring, reconciliation, MIS, and analytical reporting.</p>
+                  <span class="card-hint">Click to learn more</span>
+                </div>
+                <div class="flip-back">
+                  <div class="card-icon">🏦</div>
+                  <h4>Platform Scope</h4>
+                  <ul class="flip-list">
+                    <li>SNA fund monitoring</li>
+                    <li>Transaction reconciliation</li>
+                    <li>MIS &amp; analytics</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 4: Objectives -->
+      <section class="slide" data-title="Objectives">
+        <div class="slide-inner">
+          <span class="section-tag">Section 2</span>
+          <h2>Objectives</h2>
+          <p class="lead-text">The primary objectives of the proposed platform are:</p>
+          <ul class="objective-list">
+            <li><span class="check">✓</span> Provide real-time visibility of fund utilization under the scheme</li>
+            <li><span class="check">✓</span> Monitor beneficiary payment transactions</li>
+            <li><span class="check">✓</span> Facilitate end-to-end transaction reconciliation</li>
+            <li><span class="check">✓</span> Provide centralized dashboard for Government officials</li>
+            <li><span class="check">✓</span> Generate management reports and analytical insights</li>
+            <li><span class="check">✓</span> Enable exception management and transaction tracking</li>
+            <li><span class="check">✓</span> Ensure transparency, accountability and audit readiness</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Slide 5: Scope In -->
+      <section class="slide" data-title="Scope – In">
+        <div class="slide-inner">
+          <span class="section-tag">Section 3.1</span>
+          <h2>Project Scope — In Scope</h2>
+          <div class="scope-grid">
+            <button type="button" class="scope-item interactive-card" data-goto="7"><span class="scope-num">1</span> SNA Monitoring Dashboard</button>
+            <button type="button" class="scope-item interactive-card" data-goto="8"><span class="scope-num">2</span> Beneficiary Transaction Monitoring</button>
+            <button type="button" class="scope-item interactive-card" data-goto="9"><span class="scope-num">3</span> Success and Failure Analytics</button>
+            <button type="button" class="scope-item interactive-card" data-goto="10"><span class="scope-num">4</span> Beneficiary-wise Reconciliation</button>
+            <button type="button" class="scope-item interactive-card" data-goto="10"><span class="scope-num">5</span> PFMS Reconciliation Monitoring</button>
+            <button type="button" class="scope-item interactive-card" data-goto="11"><span class="scope-num">6</span> Exception Management System</button>
+            <button type="button" class="scope-item interactive-card" data-goto="12"><span class="scope-num">7</span> Executive MIS Dashboard</button>
+            <button type="button" class="scope-item interactive-card" data-goto="12"><span class="scope-num">8</span> Geographic Analytics Dashboard</button>
+            <button type="button" class="scope-item interactive-card" data-goto="13"><span class="scope-num">9</span> Reporting Framework</button>
+            <button type="button" class="scope-item interactive-card" data-goto="15"><span class="scope-num">10</span> User Management &amp; Access Control</button>
+            <button type="button" class="scope-item interactive-card" data-goto="16"><span class="scope-num">11</span> Audit Trail &amp; Activity Monitoring</button>
+            <button type="button" class="scope-item interactive-card" data-goto="7"><span class="scope-num">12</span> API Based Data Exchange with MahaIT</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 6: Scope Out -->
+      <section class="slide" data-title="Scope – Out">
+        <div class="slide-inner">
+          <span class="section-tag">Section 3.2</span>
+          <h2>Project Scope — Out of Scope</h2>
+          <p class="lead-text">The following activities shall remain outside the scope and be managed through MahaIT:</p>
+          <div class="out-scope-grid">
+            <div class="out-scope-item">Beneficiary Registration</div>
+            <div class="out-scope-item">Application Processing</div>
+            <div class="out-scope-item">Eligibility Verification</div>
+            <div class="out-scope-item">Aadhaar Authentication</div>
+            <div class="out-scope-item">Agristack Verification</div>
+            <div class="out-scope-item">Scheme Approval Workflow</div>
+            <div class="out-scope-item">Fund Sanction Approval</div>
+            <div class="out-scope-item">Beneficiary Selection</div>
+          </div>
+          <div class="note-banner">
+            <strong>Note:</strong> All above activities shall be managed through the MahaIT platform.
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 7: Stakeholders -->
+      <section class="slide" data-title="Stakeholders">
+        <div class="slide-inner">
+          <span class="section-tag">Section 4</span>
+          <h2>Stakeholders</h2>
+          <div class="stakeholder-levels accordion">
+            <div class="stakeholder-level accordion-item interactive-card expanded">
+              <button type="button" class="level-header l1 accordion-trigger">Level 1 — State Government<span class="accordion-icon">▼</span></button>
+              <div class="level-roles accordion-panel">Hon. Chief Minister · Chief Secretary · Principal Secretary (Cooperation) · Commissioner Cooperation</div>
+            </div>
+            <div class="stakeholder-level accordion-item interactive-card">
+              <button type="button" class="level-header l2 accordion-trigger">Level 2 — Divisional Administration<span class="accordion-icon">▼</span></button>
+              <div class="level-roles accordion-panel">Divisional Commissioner</div>
+            </div>
+            <div class="stakeholder-level accordion-item interactive-card">
+              <button type="button" class="level-header l3 accordion-trigger">Level 3 — District Administration<span class="accordion-icon">▼</span></button>
+              <div class="level-roles accordion-panel">District Collector · District Deputy Registrar</div>
+            </div>
+            <div class="stakeholder-level accordion-item interactive-card">
+              <button type="button" class="level-header l4 accordion-trigger">Level 4 — Banking Authorities<span class="accordion-icon">▼</span></button>
+              <div class="level-roles accordion-panel">State Nodal Officer · Bank Nodal Officer · Reconciliation Officer</div>
+            </div>
+            <div class="stakeholder-level accordion-item interactive-card">
+              <button type="button" class="level-header l5 accordion-trigger">Level 5 — Audit Authorities<span class="accordion-icon">▼</span></button>
+              <div class="level-roles accordion-panel">Internal Audit Users · Department Audit Users</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 8: SNA Monitoring -->
+      <section class="slide" data-title="SNA Monitoring">
+        <div class="slide-inner">
+          <span class="section-tag">Section 5.1</span>
+          <h2>SNA Monitoring Module</h2>
+          <p class="purpose-text"><em>Purpose:</em> Complete visibility of Scheme Fund movement and SNA account balances.</p>
+          <div class="two-col">
+            <div>
+              <h3 class="sub-heading">Functional Requirements</h3>
+              <ul class="compact-list">
+                <li>Display opening balance</li>
+                <li>Display funds received from Government</li>
+                <li>Display funds processed &amp; utilized</li>
+                <li>Display funds returned</li>
+                <li>Display closing balance</li>
+                <li>Display transaction summary</li>
+              </ul>
+            </div>
+            <div>
+              <h3 class="sub-heading">Dashboard Indicators</h3>
+              <div class="kpi-grid">
+                <div class="kpi-card interactive-card tilt-card" data-count="1250" data-suffix=" Cr" data-label="Opening Balance"><span class="kpi-value">0</span><span class="kpi-label">Opening Balance</span></div>
+                <div class="kpi-card interactive-card tilt-card" data-count="980" data-suffix=" Cr" data-label="Funds Received"><span class="kpi-value">0</span><span class="kpi-label">Funds Received</span></div>
+                <div class="kpi-card interactive-card tilt-card" data-count="720" data-suffix=" Cr" data-label="Funds Utilized"><span class="kpi-value">0</span><span class="kpi-label">Funds Utilized</span></div>
+                <div class="kpi-card interactive-card tilt-card" data-count="530" data-suffix=" Cr" data-label="Available Balance"><span class="kpi-value">0</span><span class="kpi-label">Available Balance</span></div>
+                <div class="kpi-card interactive-card tilt-card" data-count="845000" data-suffix="" data-label="Transactions Processed"><span class="kpi-value">0</span><span class="kpi-label">Transactions Processed</span></div>
+                <div class="kpi-card interactive-card tilt-card" data-count="812000" data-suffix="" data-label="Beneficiaries Credited"><span class="kpi-value">0</span><span class="kpi-label">Beneficiaries Credited</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 9: Beneficiary Transaction -->
+      <section class="slide" data-title="Beneficiary Transactions">
+        <div class="slide-inner">
+          <span class="section-tag">Section 5.2</span>
+          <h2>Beneficiary Transaction Monitoring</h2>
+          <p class="purpose-text"><em>Purpose:</em> Monitor beneficiary payment transactions received from MahaIT.</p>
+          <div class="two-col">
+            <div>
+              <h3 class="sub-heading">Functional Requirements</h3>
+              <ul class="compact-list">
+                <li>Receive beneficiary transaction data through APIs</li>
+                <li>Track transaction status &amp; UTR numbers</li>
+                <li>Display beneficiary payment status</li>
+                <li>Maintain transaction history</li>
+                <li>Support beneficiary search functionality</li>
+              </ul>
+            </div>
+            <div>
+              <h3 class="sub-heading">Search Parameters</h3>
+              <div class="tag-cloud">
+                <button type="button" class="tag interactive-tag">Beneficiary ID</button>
+                <button type="button" class="tag interactive-tag">Aadhaar Number</button>
+                <button type="button" class="tag interactive-tag">Mobile Number</button>
+                <button type="button" class="tag interactive-tag">Transaction Reference</button>
+                <button type="button" class="tag interactive-tag">Loan Account Number</button>
+                <button type="button" class="tag interactive-tag">Farmer Name</button>
+              </div>
+              <div class="search-demo" id="searchDemo">
+                <span class="search-demo-label">Active filter:</span>
+                <span class="search-demo-value" id="searchDemoValue">Select a parameter above</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 10: Success & Failure -->
+      <section class="slide" data-title="Success & Failure">
+        <div class="slide-inner">
+          <span class="section-tag">Section 5.3</span>
+          <h2>Success and Failure Monitoring</h2>
+          <div class="two-col">
+            <div>
+              <h3 class="sub-heading">Transaction Metrics</h3>
+              <div class="metric-row">
+                <button type="button" class="metric success interactive-metric active" data-filter="success"><span class="metric-count" data-count="812000">0</span><span>Successful</span></button>
+                <button type="button" class="metric failed interactive-metric" data-filter="failed"><span class="metric-count" data-count="12400">0</span><span>Failed</span></button>
+                <button type="button" class="metric pending interactive-metric" data-filter="pending"><span class="metric-count" data-count="8600">0</span><span>Pending</span></button>
+                <button type="button" class="metric reversed interactive-metric" data-filter="reversed"><span class="metric-count" data-count="1200">0</span><span>Reversed</span></button>
+              </div>
+              <ul class="compact-list metric-summary" style="margin-top: 1rem;">
+                <li>Total Received: <strong class="counter" data-count="834200">0</strong></li>
+                <li>Total Processed: <strong class="counter" data-count="825600">0</strong></li>
+              </ul>
+            </div>
+            <div>
+              <h3 class="sub-heading">Failure Categorization <span class="filter-hint">(click metrics to highlight)</span></h3>
+              <div class="failure-grid" id="failureGrid">
+                <span data-type="failed">Account Closed</span><span data-type="failed">Account Frozen</span>
+                <span data-type="failed">Invalid Account Number</span><span data-type="failed">Aadhaar Mapping Failure</span>
+                <span data-type="failed">Name Mismatch</span><span data-type="failed">NPCI Rejection</span>
+                <span data-type="failed">Bank Rejection</span><span data-type="technical">Technical Failure</span>
+                <span data-type="failed">Duplicate Record</span><span data-type="pending">Other Exceptions</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 11: Reconciliation -->
+      <section class="slide" data-title="Reconciliation">
+        <div class="slide-inner">
+          <span class="section-tag">Section 5.4 &amp; 5.5</span>
+          <h2>Reconciliation Modules</h2>
+          <div class="tab-bar" role="tablist">
+            <button type="button" class="tab-btn active" role="tab" data-tab="beneficiary" aria-selected="true">Beneficiary</button>
+            <button type="button" class="tab-btn" role="tab" data-tab="pfms" aria-selected="false">PFMS</button>
+          </div>
+          <div class="tab-panels">
+            <div class="module-box tab-panel active" data-panel="beneficiary">
+              <h3>Beneficiary Reconciliation</h3>
+              <ul class="compact-list">
+                <li>Reconcile beneficiary transactions</li>
+                <li>Track transaction lifecycle</li>
+                <li>Match transaction reference numbers</li>
+                <li>Identify reconciliation mismatches</li>
+                <li>Generate reconciliation reports</li>
+              </ul>
+              <div class="pipeline" id="reconPipeline">
+                <span class="pipeline-step">Data Received</span><span class="pipeline-arrow">→</span>
+                <span class="pipeline-step">Initiated</span><span class="pipeline-arrow">→</span>
+                <span class="pipeline-step">Processed</span><span class="pipeline-arrow">→</span>
+                <span class="pipeline-step">PFMS</span><span class="pipeline-arrow">→</span>
+                <span class="pipeline-step">Credit</span><span class="pipeline-arrow">→</span>
+                <span class="pipeline-step">Complete</span>
+              </div>
+            </div>
+            <div class="module-box tab-panel" data-panel="pfms">
+              <h3>PFMS Reconciliation</h3>
+              <ul class="compact-list">
+                <li>Monitor PFMS transactions</li>
+                <li>Compare transaction statuses</li>
+                <li>Identify mismatches</li>
+                <li>Generate reconciliation summaries</li>
+                <li>Generate exception reports</li>
+              </ul>
+              <div class="recon-categories">
+                <button type="button" class="matched interactive-chip">Matched <em>78%</em></button>
+                <button type="button" class="unmatched interactive-chip">Unmatched <em>8%</em></button>
+                <button type="button" class="pending-cat interactive-chip">Pending <em>7%</em></button>
+                <button type="button" class="failed-cat interactive-chip">Failed <em>4%</em></button>
+                <button type="button" class="reversed-cat interactive-chip">Reversed <em>3%</em></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 12: Exception Management -->
+      <section class="slide" data-title="Exception Management">
+        <div class="slide-inner">
+          <span class="section-tag">Section 5.6</span>
+          <h2>Exception Management Module</h2>
+          <div class="two-col">
+            <div>
+              <h3 class="sub-heading">Functional Requirements</h3>
+              <ul class="compact-list">
+                <li>Track failed transactions</li>
+                <li>Track unreconciled transactions</li>
+                <li>Track pending exceptions</li>
+                <li>Provide exception ageing analysis</li>
+                <li>Generate exception reports</li>
+              </ul>
+            </div>
+            <div>
+              <h3 class="sub-heading">Exception Aging</h3>
+              <div class="aging-bars">
+                <div class="aging-item interactive-card">
+                  <span class="aging-label">0–1 Days</span>
+                  <div class="aging-bar"><div class="aging-fill a1" data-width="25"></div></div>
+                  <span class="aging-count counter" data-count="3200">0</span>
+                </div>
+                <div class="aging-item interactive-card">
+                  <span class="aging-label">2–5 Days</span>
+                  <div class="aging-bar"><div class="aging-fill a2" data-width="40"></div></div>
+                  <span class="aging-count counter" data-count="5100">0</span>
+                </div>
+                <div class="aging-item interactive-card">
+                  <span class="aging-label">6–10 Days</span>
+                  <div class="aging-bar"><div class="aging-fill a3" data-width="60"></div></div>
+                  <span class="aging-count counter" data-count="2800">0</span>
+                </div>
+                <div class="aging-item interactive-card">
+                  <span class="aging-label">More than 10 Days</span>
+                  <div class="aging-bar"><div class="aging-fill a4" data-width="85"></div></div>
+                  <span class="aging-count counter" data-count="1300">0</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 13: Dashboards -->
+      <section class="slide" data-title="Dashboards">
+        <div class="slide-inner">
+          <span class="section-tag">Section 5.7 &amp; 5.8</span>
+          <h2>Geographic &amp; Executive Dashboards</h2>
+          <div class="two-col">
+            <div class="module-box">
+              <h3>Geographic Monitoring</h3>
+              <p>Drill-down reporting hierarchy:</p>
+              <div class="hierarchy" id="geoHierarchy">
+                <button type="button" class="hierarchy-level interactive-level" data-level="State">State</button>
+                <div class="hierarchy-arrow">↓</div>
+                <button type="button" class="hierarchy-level interactive-level" data-level="Division">Division</button>
+                <div class="hierarchy-arrow">↓</div>
+                <button type="button" class="hierarchy-level interactive-level" data-level="District">District</button>
+                <div class="hierarchy-arrow">↓</div>
+                <button type="button" class="hierarchy-level interactive-level" data-level="Taluka">Taluka</button>
+                <div class="hierarchy-arrow">↓</div>
+                <button type="button" class="hierarchy-level interactive-level" data-level="Village">Village</button>
+                <div class="hierarchy-arrow">↓</div>
+                <button type="button" class="hierarchy-level highlight interactive-level active-level" data-level="Beneficiary">Beneficiary</button>
+              </div>
+              <p class="hierarchy-breadcrumb" id="hierarchyBreadcrumb">Maharashtra → All Divisions → All Districts</p>
+            </div>
+            <div class="module-box">
+              <h3>Executive Dashboard</h3>
+              <div class="exec-grid">
+                <span>State Summary</span>
+                <span>Fund Position</span>
+                <span>Transaction Performance</span>
+                <span>Success Rate</span>
+                <span>Failure Rate</span>
+                <span>Reconciliation Status</span>
+                <span>Exception Summary</span>
+                <span>District Ranking</span>
+                <span>Taluka Ranking</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 14: Reporting Executive -->
+      <section class="slide" data-title="Reporting – Executive">
+        <div class="slide-inner">
+          <span class="section-tag">Section 6</span>
+          <h2>Reporting Framework</h2>
+          <div class="report-sections">
+            <div class="report-group">
+              <h3>Executive Reports</h3>
+              <ol class="report-list">
+                <li>State Summary Report</li>
+                <li>Daily Progress Report</li>
+                <li>Weekly Progress Report</li>
+                <li>Monthly Progress Report</li>
+                <li>Fund Utilization Report</li>
+                <li>Reconciliation Summary Report</li>
+              </ol>
+            </div>
+            <div class="report-group">
+              <h3>Beneficiary Reports</h3>
+              <ol class="report-list">
+                <li>Beneficiary Payment Status Report</li>
+                <li>Successful Beneficiary Report</li>
+                <li>Failed Beneficiary Report</li>
+                <li>Pending Beneficiary Report</li>
+                <li>Beneficiary Credit Confirmation Report</li>
+                <li>UTR Tracking Report</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 15: Reporting Reconciliation -->
+      <section class="slide" data-title="Reporting – Reconciliation">
+        <div class="slide-inner">
+          <span class="section-tag">Section 6 (cont.)</span>
+          <h2>Reporting Framework</h2>
+          <div class="report-sections">
+            <div class="report-group">
+              <h3>Reconciliation Reports</h3>
+              <ol class="report-list">
+                <li>Beneficiary Reconciliation Report</li>
+                <li>PFMS Reconciliation Report</li>
+                <li>Daily Reconciliation Report</li>
+                <li>District-wise Reconciliation Report</li>
+                <li>Taluka-wise Reconciliation Report</li>
+                <li>Bank-wise Reconciliation Report</li>
+              </ol>
+            </div>
+            <div class="report-group">
+              <h3>Exception &amp; Administrative Reports</h3>
+              <ol class="report-list">
+                <li>Failed Transaction Report</li>
+                <li>Pending Transaction Report</li>
+                <li>Reversed Transaction Report</li>
+                <li>Unmatched Transaction Report</li>
+                <li>Exception Aging Report</li>
+                <li>Division / District / Taluka / Village Performance Reports</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 16: User Management -->
+      <section class="slide" data-title="User Management">
+        <div class="slide-inner">
+          <span class="section-tag">Section 7</span>
+          <h2>User Management</h2>
+          <p class="lead-text">The platform shall support Role Based Access Control (RBAC).</p>
+          <div class="roles-grid">
+            <button type="button" class="role-card interactive-card" data-modal-title="Super Administrator" data-modal-body="Full system access including user management, configuration, and all modules across the platform." data-modal-icon="👤"><span class="role-icon">👤</span>Super Administrator</button>
+            <button type="button" class="role-card interactive-card" data-modal-title="State Administrator" data-modal-body="State-level access to dashboards, reports, and monitoring across all divisions and districts." data-modal-icon="🏛️"><span class="role-icon">🏛️</span>State Administrator</button>
+            <button type="button" class="role-card interactive-card" data-modal-title="Department Administrator" data-modal-body="Department-level oversight with access to cooperation department reports and analytics." data-modal-icon="📋"><span class="role-icon">📋</span>Department Administrator</button>
+            <button type="button" class="role-card interactive-card" data-modal-title="Division User" data-modal-body="Division-scoped access to geographic analytics, reports, and transaction monitoring." data-modal-icon="🗺️"><span class="role-icon">🗺️</span>Division User</button>
+            <button type="button" class="role-card interactive-card" data-modal-title="District User" data-modal-body="District-level monitoring, reconciliation views, and beneficiary transaction tracking." data-modal-icon="📍"><span class="role-icon">📍</span>District User</button>
+            <button type="button" class="role-card interactive-card" data-modal-title="Taluka User" data-modal-body="Taluka-level drill-down access for local administration and progress tracking." data-modal-icon="🏘️"><span class="role-icon">🏘️</span>Taluka User</button>
+            <button type="button" class="role-card interactive-card" data-modal-title="Bank User" data-modal-body="Bank operations access for SNA monitoring, reconciliation, and exception management." data-modal-icon="🏦"><span class="role-icon">🏦</span>Bank User</button>
+            <button type="button" class="role-card interactive-card" data-modal-title="Audit User" data-modal-body="Read access to audit trails, activity logs, and compliance reports for audit purposes." data-modal-icon="🔍"><span class="role-icon">🔍</span>Audit User</button>
+            <button type="button" class="role-card interactive-card" data-modal-title="Read Only User" data-modal-body="View-only access to dashboards and reports without modification privileges." data-modal-icon="👁️"><span class="role-icon">👁️</span>Read Only User</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 17: Audit & Security -->
+      <section class="slide" data-title="Audit & Security">
+        <div class="slide-inner">
+          <span class="section-tag">Sections 8 &amp; 9</span>
+          <h2>Audit Trail &amp; Security</h2>
+          <div class="two-col">
+            <div class="module-box">
+              <h3>Audit Trail</h3>
+              <p>Complete audit logs for:</p>
+              <ul class="compact-list">
+                <li>User Login</li>
+                <li>Data View</li>
+                <li>Report Generation</li>
+                <li>Data Download</li>
+                <li>User Activity</li>
+                <li>Configuration Changes</li>
+              </ul>
+            </div>
+            <div class="module-box">
+              <h3>Security Requirements</h3>
+              <div class="security-grid">
+                <span>🔒 SSL Encryption</span>
+                <span>🛡️ Role Based Access Control</span>
+                <span>🔐 Multi-Factor Authentication</span>
+                <span>🔑 Password Policy</span>
+                <span>⏱️ Session Management</span>
+                <span>📝 Audit Logging</span>
+                <span>🔗 API Security</span>
+                <span>💾 Data Encryption</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 18: Expected Outcomes -->
+      <section class="slide" data-title="Expected Outcomes">
+        <div class="slide-inner">
+          <span class="section-tag">Section 10</span>
+          <h2>Expected Outcomes</h2>
+          <div class="outcomes-grid">
+            <div class="outcome-card tilt-card interactive-card">
+              <div class="outcome-icon">📊</div>
+              <h4>End-to-End Visibility</h4>
+              <p>Complete transparency across the fund flow lifecycle</p>
+            </div>
+            <div class="outcome-card tilt-card interactive-card">
+              <div class="outcome-icon">⚡</div>
+              <h4>Real-Time Monitoring</h4>
+              <p>Live dashboards for instant decision making</p>
+            </div>
+            <div class="outcome-card tilt-card interactive-card">
+              <div class="outcome-icon">👨‍🌾</div>
+              <h4>Beneficiary Tracking</h4>
+              <p>Individual-level transaction monitoring</p>
+            </div>
+            <div class="outcome-card tilt-card interactive-card">
+              <div class="outcome-icon">🔄</div>
+              <h4>Complete Reconciliation</h4>
+              <p>Automated matching and exception handling</p>
+            </div>
+            <div class="outcome-card tilt-card interactive-card">
+              <div class="outcome-icon">⚠️</div>
+              <h4>Faster Exception Resolution</h4>
+              <p>Proactive ageing analysis and alerts</p>
+            </div>
+            <div class="outcome-card tilt-card interactive-card">
+              <div class="outcome-icon">🏛️</div>
+              <h4>Improved Governance</h4>
+              <p>Enhanced accountability and oversight</p>
+            </div>
+            <div class="outcome-card tilt-card interactive-card">
+              <div class="outcome-icon">✅</div>
+              <h4>Audit Readiness</h4>
+              <p>Comprehensive logs and compliance</p>
+            </div>
+            <div class="outcome-card tilt-card interactive-card">
+              <div class="outcome-icon">📈</div>
+              <h4>Data-Driven Decisions</h4>
+              <p>Analytics-powered insights for leadership</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 19: Thank You -->
+      <section class="slide slide-end" data-title="Thank You">
+        <div class="slide-inner">
+          <div class="end-content">
+            <h2>Thank You</h2>
+            <p class="end-subtitle">Functional Requirement Specification</p>
+            <p class="scheme-name-small">पुण्यश्लोक अहिल्यादेवी होळकर शेतकरी कर्जमुक्ती योजना – 2026</p>
+            <div class="end-logos">
+              <div class="end-org">
+                <span class="end-label">Prepared For</span>
+                <span>Department of Cooperation<br>Government of Maharashtra</span>
+              </div>
+              <div class="end-divider"></div>
+              <div class="end-org">
+                <span class="end-label">Prepared By</span>
+                <span>Bank of Maharashtra</span>
+              </div>
+            </div>
+            <p class="end-version">Version 1.0 · June 2026</p>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- Keyboard hint -->
+    <div class="keyboard-hint" id="keyboardHint">
+      <kbd>←</kbd> <kbd>→</kbd> Navigate · <kbd>M</kbd> Menu · <kbd>O</kbd> Overview · <kbd>F</kbd> Fullscreen · <kbd>P</kbd> Autoplay · Click cards to interact
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
