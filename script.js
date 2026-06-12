@@ -47,7 +47,8 @@
     '.meta-card', '.title-badge', '.main-title', '.scheme-name',
     '.note-banner', '.interactive-chip', '.security-grid span',
     '.search-demo', '.tab-bar', '.hierarchy-breadcrumb', '.end-content > *',
-    '.slide-brand-header', '.slide-heading-block', '.slide-footer'
+    '.slide-brand-header', '.slide-heading-block', '.slide-footer',
+    '.screen-preview-card', '.stat-card-ui', '.payment-row', '.ui-panel'
   ];
 
   totalSlidesEl.textContent = total;
@@ -55,6 +56,13 @@
   /* ── Brand header & footer on every slide ── */
   function setupSlideBranding() {
     slides.forEach((slide) => {
+      if (slide.classList.contains('slide-mockup')) {
+        slide.querySelector('.slide-brand-header')?.remove();
+        slide.querySelector('.slide-heading-block')?.remove();
+        slide.querySelector('.slide-footer')?.remove();
+        return;
+      }
+
       const inner = slide.querySelector('.slide-inner');
       if (!inner || inner.querySelector('.slide-brand-header')) return;
 
@@ -168,9 +176,19 @@
     setupHierarchy();
     setupModals();
     setupParticles();
+    if (window.PlatformUI) {
+      PlatformUI.init({
+        goToSlide,
+        showToast,
+        openModal,
+        getCurrentIndex: () => currentIndex,
+        animateUiCounters,
+        animateTrendChart
+      });
+    }
     updateUI(false);
     requestAnimationFrame(() => triggerSlideAnimations());
-    setTimeout(() => showToast('Presentation ready — use arrow keys or click cards to explore', 3500), 800);
+    setTimeout(() => showToast('Presentation ready — platform screens are linked. Click sidebar nav or KPI cards to drill down.', 3500), 800);
   }
 
   function setupAnimItems() {
@@ -265,6 +283,10 @@
     if (animate) {
       triggerSlideAnimations();
     }
+
+    if (window.PlatformUI) {
+      PlatformUI.onSlideChange(currentIndex);
+    }
   }
 
   function triggerSlideAnimations() {
@@ -294,7 +316,29 @@
     if (title === 'Reconciliation') {
       animatePipeline(slide);
     }
+    if (slide.dataset.screen === 'dashboard' || slide.dataset.screen === 'sna') {
+      animateUiCounters(slide);
+      animateTrendChart(slide);
+    }
   }
+
+  function animateUiCounters(slide) {
+    slide.querySelectorAll('.ui-counter').forEach((el, i) => {
+      const target = parseFloat(el.dataset.count) || 0;
+      setTimeout(() => animateValue(el, target, 1000), i * 60);
+    });
+  }
+
+  function animateTrendChart(slide) {
+    if (!slide) return;
+    slide.querySelectorAll('.line-chart .bar').forEach((bar, i) => {
+      const h = bar.style.height;
+      bar.style.height = '0%';
+      setTimeout(() => { bar.style.height = h; }, 300 + i * 50);
+    });
+  }
+
+  /* Platform UI handles all mockup interactivity via platform-ui.js */
 
   function goToSlide(index) {
     if (index < 0 || index >= total || index === currentIndex || isAnimating) return;
@@ -513,6 +557,10 @@
       el.addEventListener('click', (e) => {
         e.stopPropagation();
         const index = parseInt(el.dataset.goto, 10);
+        if (el.dataset.reconTab && window.PlatformUI) {
+          PlatformUI.navigateTo('reconciliation', { reconTab: el.dataset.reconTab, toast: 'Exception Management' });
+          return;
+        }
         goToSlide(index);
         showToast(`Navigating to: ${slides[index].dataset.title}`, 2000);
       });
@@ -732,7 +780,7 @@
   });
 
   document.getElementById('slidesContainer').addEventListener('click', (e) => {
-    if (e.target.closest('button, a, input, .flip-card, .accordion-item, .interactive-card, .tab-btn, .detail-modal, .logo-btn, .interactive-logo')) return;
+    if (e.target.closest('button, a, input, select, .flip-card, .accordion-item, .interactive-card, .tab-btn, .detail-modal, .logo-btn, .interactive-logo, .payment-row, .app-nav, .btn-apply, .btn-search, .ui-mockup')) return;
     const rect = e.currentTarget.getBoundingClientRect();
     const x = e.clientX - rect.left;
     if (x > rect.width * 0.7) nextSlide();

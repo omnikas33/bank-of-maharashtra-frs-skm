@@ -9,6 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="screens.css">
 </head>
 <body>
   <canvas id="particleCanvas" class="particle-canvas" aria-hidden="true"></canvas>
@@ -148,6 +149,7 @@
             <button type="button" class="agenda-item interactive-card" data-goto="13"><span class="agenda-num">06</span><span>Reporting Framework</span><span class="agenda-arrow">→</span></button>
             <button type="button" class="agenda-item interactive-card" data-goto="15"><span class="agenda-num">07</span><span>User Management &amp; Security</span><span class="agenda-arrow">→</span></button>
             <button type="button" class="agenda-item interactive-card" data-goto="17"><span class="agenda-num">08</span><span>Expected Outcomes</span><span class="agenda-arrow">→</span></button>
+            <button type="button" class="agenda-item interactive-card" data-goto="18"><span class="agenda-num">09</span><span>Platform Screen Designs</span><span class="agenda-arrow">→</span></button>
           </div>
         </div>
       </section>
@@ -228,14 +230,14 @@
           <span class="section-tag">Section 3.1</span>
           <h2>Project Scope — In Scope</h2>
           <div class="scope-grid">
-            <button type="button" class="scope-item interactive-card" data-goto="7"><span class="scope-num">1</span> SNA Monitoring Dashboard</button>
-            <button type="button" class="scope-item interactive-card" data-goto="8"><span class="scope-num">2</span> Beneficiary Transaction Monitoring</button>
-            <button type="button" class="scope-item interactive-card" data-goto="9"><span class="scope-num">3</span> Success and Failure Analytics</button>
-            <button type="button" class="scope-item interactive-card" data-goto="10"><span class="scope-num">4</span> Beneficiary-wise Reconciliation</button>
-            <button type="button" class="scope-item interactive-card" data-goto="10"><span class="scope-num">5</span> PFMS Reconciliation Monitoring</button>
-            <button type="button" class="scope-item interactive-card" data-goto="11"><span class="scope-num">6</span> Exception Management System</button>
-            <button type="button" class="scope-item interactive-card" data-goto="12"><span class="scope-num">7</span> Executive MIS Dashboard</button>
-            <button type="button" class="scope-item interactive-card" data-goto="12"><span class="scope-num">8</span> Geographic Analytics Dashboard</button>
+            <button type="button" class="scope-item interactive-card" data-goto="20"><span class="scope-num">1</span> SNA Monitoring Dashboard</button>
+            <button type="button" class="scope-item interactive-card" data-goto="22"><span class="scope-num">2</span> Beneficiary Transaction Monitoring</button>
+            <button type="button" class="scope-item interactive-card" data-goto="19"><span class="scope-num">3</span> Success and Failure Analytics</button>
+            <button type="button" class="scope-item interactive-card" data-goto="23"><span class="scope-num">4</span> Beneficiary-wise Reconciliation</button>
+            <button type="button" class="scope-item interactive-card" data-goto="23"><span class="scope-num">5</span> PFMS Reconciliation Monitoring</button>
+            <button type="button" class="scope-item interactive-card" data-goto="23"><span class="scope-num">6</span> Exception Management System</button>
+            <button type="button" class="scope-item interactive-card" data-goto="19"><span class="scope-num">7</span> Executive MIS Dashboard</button>
+            <button type="button" class="scope-item interactive-card" data-goto="19"><span class="scope-num">8</span> Geographic Analytics Dashboard</button>
             <button type="button" class="scope-item interactive-card" data-goto="13"><span class="scope-num">9</span> Reporting Framework</button>
             <button type="button" class="scope-item interactive-card" data-goto="15"><span class="scope-num">10</span> User Management &amp; Access Control</button>
             <button type="button" class="scope-item interactive-card" data-goto="16"><span class="scope-num">11</span> Audit Trail &amp; Activity Monitoring</button>
@@ -324,6 +326,7 @@
                 <div class="kpi-card interactive-card tilt-card" data-count="845000" data-suffix="" data-label="Transactions Processed"><span class="kpi-value">0</span><span class="kpi-label">Transactions Processed</span></div>
                 <div class="kpi-card interactive-card tilt-card" data-count="812000" data-suffix="" data-label="Beneficiaries Credited"><span class="kpi-value">0</span><span class="kpi-label">Beneficiaries Credited</span></div>
               </div>
+              <button type="button" class="live-screen-btn interactive-card" data-frs-screen="sna">View Live SNA Monitoring Screen →</button>
             </div>
           </div>
         </div>
@@ -360,6 +363,8 @@
                 <span class="search-demo-label">Active filter:</span>
                 <span class="search-demo-value" id="searchDemoValue">Select a parameter above</span>
               </div>
+              <button type="button" class="live-screen-btn interactive-card" data-frs-screen="transactions">View Live Transaction Search →</button>
+              <button type="button" class="live-screen-btn interactive-card" data-frs-screen="payments" style="margin-top:0.5rem">View Beneficiary Payments →</button>
             </div>
           </div>
         </div>
@@ -436,12 +441,13 @@
                 <li>Generate exception reports</li>
               </ul>
               <div class="recon-categories">
-                <button type="button" class="matched interactive-chip">Matched <em>78%</em></button>
-                <button type="button" class="unmatched interactive-chip">Unmatched <em>8%</em></button>
-                <button type="button" class="pending-cat interactive-chip">Pending <em>7%</em></button>
-                <button type="button" class="failed-cat interactive-chip">Failed <em>4%</em></button>
-                <button type="button" class="reversed-cat interactive-chip">Reversed <em>3%</em></button>
+                <button type="button" class="matched interactive-chip" data-frs-screen="reconciliation">Matched <em>78%</em></button>
+                <button type="button" class="unmatched interactive-chip" data-frs-screen="reconciliation">Unmatched <em>8%</em></button>
+                <button type="button" class="pending-cat interactive-chip" data-frs-screen="reconciliation">Pending <em>7%</em></button>
+                <button type="button" class="failed-cat interactive-chip" data-frs-screen="reconciliation">Failed <em>4%</em></button>
+                <button type="button" class="reversed-cat interactive-chip" data-frs-screen="reconciliation">Reversed <em>3%</em></button>
               </div>
+              <button type="button" class="live-screen-btn interactive-card" data-frs-screen="reconciliation">View Live Reconciliation Screen →</button>
             </div>
           </div>
         </div>
@@ -487,6 +493,7 @@
                   <span class="aging-count counter" data-count="1300">0</span>
                 </div>
               </div>
+              <button type="button" class="live-screen-btn interactive-card" data-frs-screen="reconciliation" data-recon-tab="exceptions">View Live Exception Screen →</button>
             </div>
           </div>
         </div>
@@ -515,6 +522,7 @@
                 <button type="button" class="hierarchy-level highlight interactive-level active-level" data-level="Beneficiary">Beneficiary</button>
               </div>
               <p class="hierarchy-breadcrumb" id="hierarchyBreadcrumb">Maharashtra → All Divisions → All Districts</p>
+              <button type="button" class="live-screen-btn interactive-card" data-frs-screen="transactions">View Geographic Drill-down (Transactions) →</button>
             </div>
             <div class="module-box">
               <h3>Executive Dashboard</h3>
@@ -529,6 +537,7 @@
                 <span>District Ranking</span>
                 <span>Taluka Ranking</span>
               </div>
+              <button type="button" class="live-screen-btn interactive-card" data-frs-screen="dashboard">View Live Executive Dashboard →</button>
             </div>
           </div>
         </div>
@@ -703,7 +712,362 @@
         </div>
       </section>
 
-      <!-- Slide 19: Thank You -->
+      <!-- Slide 19: Platform Screens Intro -->
+      <section class="slide" data-title="Platform Screens">
+        <div class="slide-inner">
+          <span class="section-tag">Section 11</span>
+          <h2>Platform Screen Designs</h2>
+          <p class="lead-text">Interactive UI mockups — all screens are linked with shared Maharashtra beneficiary data. Click any card or use sidebar navigation inside screens to drill down.</p>
+          <div class="screen-preview-grid">
+            <button type="button" class="screen-preview-card interactive-card" data-goto="19"><span class="sp-icon">📊</span><h4>Executive Dashboard</h4><p>State summary, fund flow &amp; analytics</p></button>
+            <button type="button" class="screen-preview-card interactive-card" data-goto="20"><span class="sp-icon">🏦</span><h4>SNA Monitoring</h4><p>Fund position &amp; nodal account balances</p></button>
+            <button type="button" class="screen-preview-card interactive-card" data-goto="21"><span class="sp-icon">👨‍🌾</span><h4>Beneficiary Payments</h4><p>Payment details with mock farmer data</p></button>
+            <button type="button" class="screen-preview-card interactive-card" data-goto="22"><span class="sp-icon">🔍</span><h4>Transaction Search</h4><p>Search &amp; track beneficiary transactions</p></button>
+            <button type="button" class="screen-preview-card interactive-card" data-goto="23"><span class="sp-icon">🔄</span><h4>Reconciliation</h4><p>PFMS &amp; beneficiary reconciliation</p></button>
+            <button type="button" class="screen-preview-card interactive-card" data-goto="23" data-recon-tab="exceptions"><span class="sp-icon">⚠️</span><h4>Exception Management</h4><p>Failed &amp; pending exception tracking</p></button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 20: Executive Dashboard Mockup -->
+      <section class="slide slide-mockup" data-title="UI — Executive Dashboard" data-screen="dashboard">
+        <div class="slide-inner slide-inner-mockup">
+          <div class="platform-screen-nav">
+            <span class="platform-filter-chip">All Maharashtra · All Status</span>
+            <div class="platform-quick-links">
+              <button type="button" data-platform-nav="dashboard" class="active">📊 Dashboard</button>
+              <button type="button" data-platform-nav="sna">🏦 SNA</button>
+              <button type="button" data-platform-nav="payments">👨‍🌾 Payments</button>
+              <button type="button" data-platform-nav="transactions">💳 Transactions</button>
+              <button type="button" data-platform-nav="reconciliation">🔄 Recon</button>
+            </div>
+          </div>
+          <div class="ui-mockup app-shell dashboard-compact" id="dashboardMockup">
+            <aside class="app-sidebar">
+              <div class="sidebar-brand-mini">
+                <img src="assets/bank-logo.png" alt="">
+                <span>Loan Waiver Scheme MIS</span>
+              </div>
+              <ul class="app-nav platform-nav">
+                <li><button type="button" data-platform-nav="dashboard" class="active"><span class="nav-icon">📊</span> Dashboard</button></li>
+                <li><button type="button" data-platform-nav="sna"><span class="nav-icon">🏦</span> SNA Accounts</button></li>
+                <li><button type="button" data-platform-nav="payments"><span class="nav-icon">👨‍🌾</span> Beneficiaries</button></li>
+                <li><button type="button" data-platform-nav="transactions"><span class="nav-icon">💳</span> Transactions</button></li>
+                <li><button type="button" data-platform-nav="reconciliation"><span class="nav-icon">🔄</span> Reconciliation</button></li>
+                <li><button type="button" data-platform-nav="reports"><span class="nav-icon">📋</span> Reports</button></li>
+              </ul>
+              <div class="sidebar-filters sidebar-filters-compact">
+                <h4>Filters</h4>
+                <div class="filter-field"><label>District</label>
+                  <select class="platform-district-filter">
+                    <option value="">All Districts</option>
+                    <option value="Pune">Pune</option><option value="Nashik">Nashik</option><option value="Nagpur">Nagpur</option>
+                    <option value="Kolhapur">Kolhapur</option><option value="Aurangabad">Aurangabad</option><option value="Satara">Satara</option><option value="Solapur">Solapur</option>
+                  </select>
+                </div>
+                <button type="button" class="btn-apply btn-apply-filters">Apply Filters</button>
+                <button type="button" class="btn-clear-filters">Clear</button>
+              </div>
+            </aside>
+            <div class="app-main">
+              <header class="app-header">
+                <div><h3>Dashboard</h3><p>पुण्यश्लोक अहिल्यादेवी होळकर शेतकरी कर्जमुक्ती योजना – 2026</p></div>
+                <div class="header-meta"><span>Last Updated</span><strong data-last-updated>12 Jun 2026, 10:30 AM</strong></div>
+              </header>
+              <div class="app-body">
+                <div class="stat-row">
+                  <div class="stat-card-ui clickable-drill" data-kpi-target="payments" data-kpi-label="View all beneficiaries"><div class="stat-top"><span class="stat-label">Total Beneficiaries</span><span class="stat-icon blue">👥</span></div><div class="stat-value ui-counter" data-kpi="totalBeneficiaries" data-count="648567">0</div><div class="stat-change up">↑ 8.5% vs May</div></div>
+                  <div class="stat-card-ui clickable-drill" data-kpi-target="payments" data-kpi-label="Payment amounts"><div class="stat-top"><span class="stat-label">Beneficiary Amount (₹ Cr)</span><span class="stat-icon green">💰</span></div><div class="stat-value"><span class="ui-counter" data-kpi="beneficiaryAmountCr" data-count="1286">0</span> Cr</div><div class="stat-change up">↑ 6.2%</div></div>
+                  <div class="stat-card-ui clickable-drill" data-kpi-target="sna" data-kpi-label="SNA fund monitoring"><div class="stat-top"><span class="stat-label">Credited to SNA (₹ Cr)</span><span class="stat-icon purple">🏛️</span></div><div class="stat-value"><span class="ui-counter" data-kpi="creditedSnaCr" data-count="1324">0</span> Cr</div><div class="stat-change up">↑ 5.1%</div></div>
+                  <div class="stat-card-ui clickable-drill" data-kpi-target="sna" data-kpi-label="SNA debits"><div class="stat-top"><span class="stat-label">Debited from SNA (₹ Cr)</span><span class="stat-icon orange">📤</span></div><div class="stat-value"><span class="ui-counter" data-kpi="debitedSnaCr" data-count="1278">0</span> Cr</div><div class="stat-change up">↑ 4.8%</div></div>
+                  <div class="stat-card-ui clickable-drill" data-kpi-target="transactions" data-kpi-label="Credited beneficiaries"><div class="stat-top"><span class="stat-label">Beneficiaries Credited</span><span class="stat-icon teal">✅</span></div><div class="stat-value ui-counter" data-kpi="beneficiariesCredited" data-count="612195">0</div><div class="stat-change up">↑ 7.3%</div></div>
+                  <div class="stat-card-ui clickable-drill" data-kpi-target="payments" data-kpi-label="Amount received"><div class="stat-top"><span class="stat-label">Amt. Received (₹ Cr)</span><span class="stat-icon indigo">💵</span></div><div class="stat-value"><span class="ui-counter" data-kpi="amountReceivedCr" data-count="1265">0</span> Cr</div><div class="stat-change up">↑ 6.9%</div></div>
+                </div>
+                <div class="dashboard-grid">
+                  <div class="ui-panel">
+                    <div class="ui-panel-head"><h4>Beneficiaries Trend — June 2026</h4><button type="button" class="drill-link" data-view-all="transactions">View All →</button></div>
+                    <div class="line-chart" id="trendChart"></div>
+                  </div>
+                  <div class="ui-panel">
+                    <div class="ui-panel-head"><h4>Amount Flow Overview</h4></div>
+                    <div class="flow-steps"></div>
+                  </div>
+                  <div class="ui-panel">
+                    <div class="ui-panel-head"><h4>Credit Status</h4></div>
+                    <div class="donut-wrap">
+                      <div class="donut-chart"><div class="donut-center">6,48,567<br>Total</div></div>
+                      <div class="donut-legend"></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="dashboard-bottom">
+                  <div class="ui-panel">
+                    <div class="ui-panel-head"><h4>Transit Analysis</h4></div>
+                    <div class="transit-cards">
+                      <div class="transit-card"><div class="transit-ring g">81%</div><div style="font-size:0.4375rem;font-weight:700">Within 1 Day</div><div style="font-size:0.375rem;color:#64748b">4,89,743</div></div>
+                      <div class="transit-card"><div class="transit-ring y">12%</div><div style="font-size:0.4375rem;font-weight:700">Within 2 Days</div><div style="font-size:0.375rem;color:#64748b">78,761</div></div>
+                      <div class="transit-card"><div class="transit-ring r">6%</div><div style="font-size:0.4375rem;font-weight:700">After 3+ Days</div><div style="font-size:0.375rem;color:#64748b">43,691</div></div>
+                    </div>
+                  </div>
+                  <div class="ui-panel">
+                    <div class="ui-panel-head"><h4>District-wise Performance — Top 5</h4><button type="button" class="drill-link" data-view-all="transactions">View All →</button></div>
+                    <div class="ui-table-wrap">
+                      <table class="ui-table" id="dashboardDistrictTable">
+                        <thead><tr><th>District</th><th>Bank</th><th>Beneficiaries</th><th>Received (₹ Cr)</th><th>Success</th></tr></thead>
+                        <tbody></tbody>
+                      </table>
+                    </div>
+                  </div>
+                  <div class="ui-panel">
+                    <div class="ui-panel-head"><h4>Transaction Summary</h4></div>
+                    <div id="txSummaryBlock" style="font-size:0.5rem;line-height:1.8"></div>
+                  </div>
+                </div>
+                <div class="highlights-row"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 21: SNA Monitoring Mockup -->
+      <section class="slide slide-mockup" data-title="UI — SNA Monitoring" data-screen="sna">
+        <div class="slide-inner slide-inner-mockup">
+          <div class="platform-screen-nav">
+            <span class="platform-filter-chip">All Maharashtra · All Status</span>
+            <div class="platform-quick-links">
+              <button type="button" data-platform-nav="dashboard">📊 Dashboard</button>
+              <button type="button" data-platform-nav="sna" class="active">🏦 SNA</button>
+              <button type="button" data-platform-nav="payments">👨‍🌾 Payments</button>
+              <button type="button" data-platform-nav="transactions">💳 Transactions</button>
+              <button type="button" data-platform-nav="reconciliation">🔄 Recon</button>
+            </div>
+          </div>
+          <div class="ui-mockup app-shell">
+            <aside class="app-sidebar">
+              <div class="sidebar-brand-mini"><img src="assets/bank-logo.png" alt=""><span>SNA Monitoring</span></div>
+              <ul class="app-nav platform-nav">
+                <li><button type="button" data-platform-nav="dashboard"><span class="nav-icon">📊</span> Dashboard</button></li>
+                <li><button type="button" data-platform-nav="sna" class="active"><span class="nav-icon">🏦</span> SNA Accounts</button></li>
+                <li><button type="button" data-platform-nav="payments"><span class="nav-icon">👨‍🌾</span> Beneficiaries</button></li>
+                <li><button type="button" data-platform-nav="transactions"><span class="nav-icon">💳</span> Transactions</button></li>
+                <li><button type="button" data-platform-nav="reconciliation"><span class="nav-icon">🔄</span> Reconciliation</button></li>
+                <li><button type="button" data-platform-nav="reports"><span class="nav-icon">📋</span> Reports</button></li>
+              </ul>
+            </aside>
+            <div class="app-main">
+              <header class="app-header">
+                <div><h3>SNA Account Monitoring</h3><p>Scheme Fund Movement &amp; Balances — June 2026</p></div>
+                <div class="header-meta"><span>Account</span><strong>SNA-MAHA-LW-2026-001</strong></div>
+              </header>
+              <div class="app-body">
+                <div class="sna-grid">
+                  <div class="sna-card clickable-drill" data-drill="dashboard"><div class="sna-val ui-counter" data-sna="openingBalance" data-count="1250">0</div><div class="sna-lbl">Opening Balance (₹ Cr)</div></div>
+                  <div class="sna-card"><div class="sna-val ui-counter" data-sna="fundsReceived" data-count="1324">0</div><div class="sna-lbl">Funds Received (₹ Cr)</div></div>
+                  <div class="sna-card clickable-drill" data-drill="transactions"><div class="sna-val ui-counter" data-sna="fundsProcessed" data-count="1278">0</div><div class="sna-lbl">Funds Processed (₹ Cr)</div></div>
+                  <div class="sna-card clickable-drill" data-drill="payments"><div class="sna-val ui-counter" data-sna="fundsUtilized" data-count="1265">0</div><div class="sna-lbl">Funds Utilized (₹ Cr)</div></div>
+                  <div class="sna-card"><div class="sna-val">₹ 12 Cr</div><div class="sna-lbl">Funds Returned</div></div>
+                  <div class="sna-card"><div class="sna-val ui-counter" data-sna="availableBalance" data-count="531">0</div><div class="sna-lbl">Available Balance (₹ Cr)</div></div>
+                </div>
+                <div class="ui-panel">
+                  <div class="ui-panel-head"><h4>SNA Transaction Summary — Last 7 Days</h4><button type="button" class="drill-link" data-view-all="transactions">View Transactions →</button></div>
+                  <table class="ui-table" id="snaDailyTable">
+                    <thead><tr><th>Date</th><th>Received (₹ Cr)</th><th>Processed (₹ Cr)</th><th>Beneficiaries</th><th>Closing Balance</th></tr></thead>
+                    <tbody></tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 22: Beneficiary Payment Details -->
+      <section class="slide slide-mockup" data-title="UI — Payment Details" data-screen="payments">
+        <div class="slide-inner slide-inner-mockup">
+          <div class="platform-screen-nav">
+            <span class="platform-filter-chip">All Maharashtra · All Status</span>
+            <div class="platform-quick-links">
+              <button type="button" data-platform-nav="dashboard">📊 Dashboard</button>
+              <button type="button" data-platform-nav="sna">🏦 SNA</button>
+              <button type="button" data-platform-nav="payments" class="active">👨‍🌾 Payments</button>
+              <button type="button" data-platform-nav="transactions">💳 Transactions</button>
+              <button type="button" data-platform-nav="reconciliation">🔄 Recon</button>
+            </div>
+          </div>
+          <div class="ui-mockup app-shell" id="paymentMockup">
+            <aside class="app-sidebar">
+              <div class="sidebar-brand-mini"><img src="assets/bank-logo.png" alt=""><span>Beneficiary Payments</span></div>
+              <ul class="app-nav platform-nav">
+                <li><button type="button" data-platform-nav="dashboard"><span class="nav-icon">📊</span> Dashboard</button></li>
+                <li><button type="button" data-platform-nav="sna"><span class="nav-icon">🏦</span> SNA Accounts</button></li>
+                <li><button type="button" data-platform-nav="payments" class="active"><span class="nav-icon">👨‍🌾</span> Beneficiaries</button></li>
+                <li><button type="button" data-platform-nav="transactions"><span class="nav-icon">💳</span> Transactions</button></li>
+                <li><button type="button" data-platform-nav="reconciliation"><span class="nav-icon">🔄</span> Reconciliation</button></li>
+              </ul>
+              <div class="sidebar-filters">
+                <h4>Filter</h4>
+                <div class="filter-field"><label>District</label>
+                  <select class="platform-district-filter">
+                    <option value="">All Districts</option>
+                    <option value="Pune">Pune</option><option value="Nashik">Nashik</option><option value="Satara">Satara</option>
+                    <option value="Kolhapur">Kolhapur</option><option value="Aurangabad">Aurangabad</option><option value="Solapur">Solapur</option><option value="Nagpur">Nagpur</option>
+                  </select>
+                </div>
+                <button type="button" class="btn-apply btn-apply-filters">Apply</button>
+                <button type="button" class="btn-clear-filters">Clear</button>
+              </div>
+            </aside>
+            <div class="app-main payment-screen">
+              <div class="payment-legend">
+                <div class="legend-card"><div class="lc-icon">🔢</div><h5>S. No.</h5></div>
+                <div class="legend-card"><div class="lc-icon">👨‍🌾</div><h5>Farmer Name</h5></div>
+                <div class="legend-card"><div class="lc-icon">💰</div><h5>Amount (₹)</h5></div>
+                <div class="legend-card"><div class="lc-icon">🪪</div><h5>Aadhaar</h5></div>
+                <div class="legend-card"><div class="lc-icon">🔗</div><h5>UTR / Reference</h5></div>
+              </div>
+              <div class="payment-table-header">📋 PAYMENT DETAILS — <span id="paymentCount">12 records</span> · Click row for details · Double-click for transactions</div>
+              <div class="col-icon-row"><span>#</span><span>Farmer Name</span><span>District</span><span>Amount (₹)</span><span>Aadhaar</span><span>UTR No.</span><span>Status</span><span>Loan A/c</span></div>
+              <div class="payment-rows" id="paymentRows"></div>
+              <div class="payment-footer-notes">
+                <div class="note-item"><span>🔒</span><div><strong>Security</strong>Aadhaar masked per UIDAI guidelines</div></div>
+                <div class="note-item"><span>✅</span><div><strong>Source</strong>MahaIT · Aadhaar · Agristack validated</div></div>
+                <div class="note-item"><span>📋</span><div><strong>Linked</strong>Data synced with Transaction Search &amp; Reconciliation</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 23: Transaction Search -->
+      <section class="slide slide-mockup" data-title="UI — Transaction Search" data-screen="search">
+        <div class="slide-inner slide-inner-mockup">
+          <div class="platform-screen-nav">
+            <span class="platform-filter-chip">All Maharashtra · All Status</span>
+            <div class="platform-quick-links">
+              <button type="button" data-platform-nav="dashboard">📊 Dashboard</button>
+              <button type="button" data-platform-nav="sna">🏦 SNA</button>
+              <button type="button" data-platform-nav="payments">👨‍🌾 Payments</button>
+              <button type="button" data-platform-nav="transactions" class="active">💳 Transactions</button>
+              <button type="button" data-platform-nav="reconciliation">🔄 Recon</button>
+            </div>
+          </div>
+          <div class="ui-mockup app-shell">
+            <aside class="app-sidebar">
+              <div class="sidebar-brand-mini"><img src="assets/bank-logo.png" alt=""><span>Transaction MIS</span></div>
+              <ul class="app-nav platform-nav">
+                <li><button type="button" data-platform-nav="dashboard"><span class="nav-icon">📊</span> Dashboard</button></li>
+                <li><button type="button" data-platform-nav="sna"><span class="nav-icon">🏦</span> SNA Accounts</button></li>
+                <li><button type="button" data-platform-nav="payments"><span class="nav-icon">👨‍🌾</span> Beneficiaries</button></li>
+                <li><button type="button" data-platform-nav="transactions" class="active"><span class="nav-icon">💳</span> Transactions</button></li>
+                <li><button type="button" data-platform-nav="reconciliation"><span class="nav-icon">🔄</span> Reconciliation</button></li>
+                <li><button type="button" data-platform-nav="reports"><span class="nav-icon">📋</span> Reports</button></li>
+              </ul>
+            </aside>
+            <div class="app-main">
+              <header class="app-header">
+                <div><h3>Transaction Search</h3><p>Search by Beneficiary ID, Name, UTR or Loan Account — <strong id="txResultCount">12 record(s)</strong></p></div>
+              </header>
+              <div class="search-bar-ui">
+                <div class="search-field-ui"><label>Beneficiary ID</label><input type="text" placeholder="BEN-2026-XXXXX" id="searchBenId"></div>
+                <div class="search-field-ui"><label>Farmer Name</label><input type="text" placeholder="Enter name" id="searchName"></div>
+                <div class="search-field-ui"><label>Status</label><select id="searchStatus"><option value="">All</option><option>Success</option><option>In-Transit</option><option>Failed</option><option>Pending</option></select></div>
+                <div class="search-field-ui"><label>District</label><select id="searchDistrict"><option value="">All</option><option>Pune</option><option>Nashik</option><option>Satara</option><option>Kolhapur</option><option>Aurangabad</option><option>Solapur</option><option>Nagpur</option></select></div>
+                <button type="button" class="btn-search" id="btnSearchTx">Search</button>
+              </div>
+              <div class="app-body" style="padding-top:0">
+                <table class="ui-table" id="txSearchTable">
+                  <thead><tr><th>Ben. ID</th><th>Farmer Name</th><th>District</th><th>Amount (₹)</th><th>UTR</th><th>Status</th><th>Date</th></tr></thead>
+                  <tbody></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 24: Reconciliation & Exceptions -->
+      <section class="slide slide-mockup" data-title="UI — Reconciliation" data-screen="recon">
+        <div class="slide-inner slide-inner-mockup">
+          <div class="platform-screen-nav">
+            <span class="platform-filter-chip">All Maharashtra · All Status</span>
+            <div class="platform-quick-links">
+              <button type="button" data-platform-nav="dashboard">📊 Dashboard</button>
+              <button type="button" data-platform-nav="sna">🏦 SNA</button>
+              <button type="button" data-platform-nav="payments">👨‍🌾 Payments</button>
+              <button type="button" data-platform-nav="transactions">💳 Transactions</button>
+              <button type="button" data-platform-nav="reconciliation" class="active">🔄 Recon</button>
+            </div>
+          </div>
+          <div class="ui-mockup app-shell">
+            <aside class="app-sidebar">
+              <div class="sidebar-brand-mini"><img src="assets/bank-logo.png" alt=""><span>Reconciliation</span></div>
+              <ul class="app-nav platform-nav">
+                <li><button type="button" data-platform-nav="dashboard"><span class="nav-icon">📊</span> Dashboard</button></li>
+                <li><button type="button" data-platform-nav="payments"><span class="nav-icon">👨‍🌾</span> Beneficiaries</button></li>
+                <li><button type="button" data-platform-nav="transactions"><span class="nav-icon">💳</span> Transactions</button></li>
+                <li><button type="button" data-platform-nav="reconciliation" class="active"><span class="nav-icon">🔄</span> Reconciliation</button></li>
+              </ul>
+            </aside>
+            <div class="app-main">
+              <header class="app-header">
+                <div><h3>PFMS &amp; Exception Dashboard</h3><p>Daily Reconciliation Summary — 12 Jun 2026</p></div>
+              </header>
+              <div class="recon-tabs-ui">
+                <button type="button" class="recon-tab-btn active" data-recon-tab="pfms">🏛️ PFMS Reconciliation</button>
+                <button type="button" class="recon-tab-btn" data-recon-tab="beneficiary">👨‍🌾 Beneficiary Recon</button>
+                <button type="button" class="recon-tab-btn" data-recon-tab="exceptions">⚠️ Exception Management</button>
+              </div>
+              <div class="app-body">
+                <div class="recon-summary" id="reconSummary"></div>
+                <div class="recon-tab-panel active" data-recon-panel="pfms">
+                  <div class="recon-grid-ui">
+                    <div class="ui-panel">
+                      <div class="ui-panel-head"><h4>Exception Aging Report</h4></div>
+                      <table class="ui-table" id="reconAgingTable">
+                        <thead><tr><th>Age Bucket</th><th>Count</th><th>Amount (₹ Cr)</th><th>Action</th></tr></thead>
+                        <tbody></tbody>
+                      </table>
+                    </div>
+                    <div class="ui-panel">
+                      <div class="ui-panel-head"><h4>Recent Unmatched Transactions</h4><button type="button" class="drill-link" data-view-all="payments">View Beneficiaries →</button></div>
+                      <table class="ui-table" id="reconUnmatchedTable">
+                        <thead><tr><th>Ben. ID</th><th>Farmer</th><th>Issue</th><th>Days</th></tr></thead>
+                        <tbody></tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+                <div class="recon-tab-panel" data-recon-panel="beneficiary">
+                  <div class="ui-panel">
+                    <div class="ui-panel-head"><h4>Beneficiary Reconciliation Pipeline</h4></div>
+                    <div class="recon-pipeline-ui">
+                      <span class="pipeline-node">Data Received</span><span>→</span>
+                      <span class="pipeline-node">Initiated</span><span>→</span>
+                      <span class="pipeline-node">Processed</span><span>→</span>
+                      <span class="pipeline-node">PFMS Match</span><span>→</span>
+                      <span class="pipeline-node">Credit</span><span>→</span>
+                      <span class="pipeline-node active">Complete</span>
+                    </div>
+                    <p class="recon-note">78% matched · 8% unmatched · 7% pending — click unmatched rows to view beneficiary details</p>
+                  </div>
+                </div>
+                <div class="recon-tab-panel" data-recon-panel="exceptions">
+                  <div class="ui-panel">
+                    <div class="ui-panel-head"><h4>Active Exceptions — Failed &amp; Pending</h4><button type="button" class="drill-link" data-view-all="transactions" data-status="Failed">View Failed Txns →</button></div>
+                    <table class="ui-table" id="exceptionsTable">
+                      <thead><tr><th>Ben. ID</th><th>Farmer</th><th>District</th><th>Issue</th><th>Status</th><th>Amount (₹)</th></tr></thead>
+                      <tbody></tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 25: Thank You -->
       <section class="slide slide-end" data-title="Thank You">
         <div class="slide-inner">
           <div class="end-content">
@@ -734,6 +1098,8 @@
     </div>
   </div>
 
+  <script src="platform-data.js"></script>
+  <script src="platform-ui.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
