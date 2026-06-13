@@ -1397,25 +1397,7 @@ h3 {
   .exec-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
-/* ---- Print ---- */
-@media print {
-  .nav-controls, .overview-toggle, .overview-panel, .keyboard-hint, .progress-bar,
-  .toolbar, .sidebar, .sidebar-overlay, .slide-dots, .toast-container, .detail-modal, .particle-canvas {
-    display: none !important;
-  }
-
-  .slide {
-    position: relative;
-    opacity: 1 !important;
-    visibility: visible !important;
-    transform: none !important;
-    page-break-after: always;
-    height: 100vh;
-  }
-
-  body { overflow: visible; }
-  .slides-container { height: auto; }
-}
+/* Print styles → see print.css */
 
 /* ============================================
    ANIMATIONS & INTERACTIVE ENHANCEMENTS
@@ -2113,14 +2095,8 @@ h3 {
   to { transform: scale(4); opacity: 0; }
 }
 
-@media print {
-  .toolbar, .sidebar, .sidebar-overlay, .slide-dots, .toast-container, .detail-modal, .particle-canvas {
-    display: none !important;
-  }
-}
 
-/* ============================================
-   BRAND HEADER — Logos on every slide
+/* Print styles → see print.css */
    ============================================ */
 .slide-brand-header {
   display: grid;
@@ -2395,9 +2371,5 @@ h3 {
   .tab-panels.two-col { grid-template-columns: 1fr; }
 }
 
-@media print {
-  .toolbar, .sidebar, .sidebar-overlay, .slide-dots, .toast-container, .detail-modal, .particle-canvas {
-    display: none !important;
-  }
-}
 
+/* Print styles → see print.css */

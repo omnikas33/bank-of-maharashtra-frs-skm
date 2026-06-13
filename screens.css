@@ -303,6 +303,108 @@
   color: #fff;
 }
 
+/* ---- Excel Export Buttons ---- */
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+.btn-export-excel {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.3rem 0.55rem;
+  background: #15803d;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 0.4375rem;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: inherit;
+  white-space: nowrap;
+  transition: background 0.15s, transform 0.15s;
+  box-shadow: 0 1px 3px rgba(21, 128, 61, 0.3);
+}
+
+.btn-export-excel:hover {
+  background: #166534;
+  transform: translateY(-1px);
+}
+
+.btn-export-excel.btn-export-lg {
+  font-size: 0.8125rem;
+  padding: 0.625rem 1.25rem;
+  border-radius: 8px;
+}
+
+.btn-export-pdf {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.3rem 0.55rem;
+  background: #082a75;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 0.4375rem;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: inherit;
+  white-space: nowrap;
+  transition: background 0.15s, transform 0.15s;
+  box-shadow: 0 1px 3px rgba(8, 42, 117, 0.3);
+}
+
+.btn-export-pdf:hover {
+  background: #1565c0;
+  transform: translateY(-1px);
+}
+
+.btn-export-pdf.btn-export-lg {
+  font-size: 0.8125rem;
+  padding: 0.625rem 1.25rem;
+  border-radius: 8px;
+}
+
+.export-actions-bar .btn-export-pdf {
+  font-size: 0.8125rem;
+}
+
+.export-actions-bar {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.35rem;
+  margin-bottom: 0.75rem;
+  padding: 0.75rem;
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: 8px;
+}
+
+.export-hint {
+  font-size: 0.6875rem;
+  color: #64748b;
+}
+
+.report-sections + .export-actions-bar,
+.report-sections ~ .btn-export-lg {
+  margin-top: 0.75rem;
+}
+
+.slide-inner > .export-actions-bar .btn-export-excel {
+  font-size: 0.75rem;
+}
+
+.slide-inner > .export-actions-bar {
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
 .app-sidebar {
   grid-column: 1;
   grid-row: 1;
@@ -940,12 +1042,20 @@
   font-weight: 700;
   display: flex;
   align-items: center;
-  gap: 0.35rem;
+  justify-content: space-between;
+  gap: 0.5rem;
   flex-shrink: 0;
 }
 
-.payment-table-header span {
-  opacity: 0.9;
+.payment-table-header .btn-export-excel {
+  background: #fff;
+  color: #082a75;
+  box-shadow: none;
+}
+
+.payment-table-header .btn-export-excel:hover {
+  background: #dcfce7;
+  color: #15803d;
 }
 
 .col-icon-row {

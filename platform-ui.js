@@ -357,7 +357,11 @@
         e.stopPropagation();
         const screen = nav.dataset.platformNav;
         if (screen === 'reports') {
-          deps.showToast('Reports module — PDF / Excel export (demo)', 2500);
+          if (window.PlatformExport) {
+            PlatformExport.exportFullWorkbook();
+          } else {
+            deps.showToast('Export module loading…', 2000);
+          }
           return;
         }
         navigateTo(screen, { toast: `Opened ${nav.textContent.trim()}` });
@@ -536,5 +540,17 @@
     }
   }
 
-  window.PlatformUI = { init, onSlideChange, navigateTo, getState: () => ({ ...state }) };
+  function prepareForPrint() {
+    renderAll();
+    setCounterFinalValues();
+  }
+
+  function setCounterFinalValues() {
+    document.querySelectorAll('[data-screen="dashboard"] .ui-counter[data-count], [data-screen="sna"] .ui-counter[data-count]').forEach((el) => {
+      const target = parseFloat(el.dataset.count) || 0;
+      el.textContent = Math.floor(target).toLocaleString('en-IN');
+    });
+  }
+
+  window.PlatformUI = { init, onSlideChange, navigateTo, getState: () => ({ ...state }), filteredBeneficiaries, prepareForPrint };
 })();

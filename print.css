@@ -1,0 +1,510 @@
+/* ============================================================
+   Professional PDF Export — one slide per A4 landscape page
+   ============================================================ */
+@media print {
+  @page {
+    size: 297mm 210mm;
+    margin: 0;
+  }
+
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  html, body {
+    overflow: visible !important;
+    height: auto !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #fff !important;
+    font-family: 'Inter', 'Noto Sans Devanagari', sans-serif !important;
+  }
+
+  /* Hide all UI chrome */
+  .nav-controls,
+  .overview-toggle,
+  .overview-panel,
+  .keyboard-hint,
+  .progress-bar,
+  .toolbar,
+  .sidebar,
+  .sidebar-overlay,
+  .slide-dots,
+  .toast-container,
+  .detail-modal,
+  .particle-canvas,
+  .platform-screen-nav,
+  .btn-export-excel,
+  .btn-export-pdf,
+  .btn-clear-filters,
+  .live-screen-btn,
+  .export-actions-bar,
+  .filter-hint,
+  .agenda-arrow,
+  .sidebar-filters,
+  .drill-link,
+  .print-hide {
+    display: none !important;
+  }
+
+  .presentation {
+    position: static !important;
+    width: 100% !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+
+  .slides-container {
+    position: static !important;
+    height: auto !important;
+    width: 100% !important;
+  }
+
+  /* ── One slide = exactly one page ── */
+  body.print-all-slides .slide,
+  body.printing-pdf:not(.print-current-slide) .slide {
+    position: relative !important;
+    inset: auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+    width: 297mm !important;
+    height: 210mm !important;
+    max-height: 210mm !important;
+    min-height: 210mm !important;
+    overflow: hidden !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: none !important;
+    page-break-after: always !important;
+    break-after: page !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+    z-index: auto !important;
+    animation: none !important;
+    transition: none !important;
+    background: #fff !important;
+    box-sizing: border-box !important;
+  }
+
+  body.print-current-slide .slide {
+    display: none !important;
+  }
+
+  body.print-current-slide .slide.active {
+    position: relative !important;
+    display: flex !important;
+    flex-direction: column !important;
+    width: 297mm !important;
+    height: 210mm !important;
+    max-height: 210mm !important;
+    overflow: hidden !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: none !important;
+    page-break-after: avoid !important;
+  }
+
+  /* Tricolor top bar */
+  .slide-inner::before {
+    height: 3px !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Content area — fills space above footer */
+  .slide-inner,
+  .slide-inner-mockup {
+    flex: 1 1 auto !important;
+    min-height: 0 !important;
+    max-height: 100% !important;
+    overflow: hidden !important;
+    padding: 5mm 8mm 2mm !important;
+    background: #fff !important;
+    box-sizing: border-box !important;
+  }
+
+  .slide-title .slide-inner,
+  .slide-end .slide-inner {
+    padding: 8mm 12mm 4mm !important;
+    justify-content: center !important;
+  }
+
+  .slide-mockup .slide-inner,
+  .slide-mockup .slide-inner-mockup {
+    padding: 3mm 4mm 2mm !important;
+    background: #fff !important;
+  }
+
+  /* Brand header — compact for print */
+  .slide-brand-header {
+    display: grid !important;
+    padding: 2.5mm 3mm !important;
+    margin: 0 0 2.5mm !important;
+    border-radius: 4px !important;
+    page-break-inside: avoid !important;
+  }
+
+  .slide-mockup .slide-brand-header,
+  .slide-mockup .slide-heading-block {
+    display: none !important;
+  }
+
+  .brand-logo-ind,
+  .brand-logo-maha {
+    height: 26px !important;
+    width: auto !important;
+  }
+
+  .brand-logo-bank {
+    height: 30px !important;
+  }
+
+  .brand-govt-hi {
+    font-size: 7pt !important;
+  }
+
+  .brand-govt {
+    font-size: 8pt !important;
+  }
+
+  .brand-dept {
+    font-size: 6.5pt !important;
+  }
+
+  .brand-scheme {
+    font-size: 6pt !important;
+    line-height: 1.25 !important;
+  }
+
+  .logo-btn {
+    border: none !important;
+    background: transparent !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+  }
+
+  /* Typography scale */
+  .section-tag {
+    font-size: 6.5pt !important;
+    padding: 1mm 2mm !important;
+    margin-bottom: 1.5mm !important;
+  }
+
+  .slide-heading-block {
+    margin-bottom: 2.5mm !important;
+    padding-bottom: 2mm !important;
+  }
+
+  .slide-heading-block h2,
+  .slide-inner > h2 {
+    font-size: 16pt !important;
+    margin-bottom: 2mm !important;
+    line-height: 1.2 !important;
+  }
+
+  h3, .sub-heading {
+    font-size: 10pt !important;
+    margin-bottom: 1.5mm !important;
+  }
+
+  .lead-text, .purpose-text, p {
+    font-size: 8.5pt !important;
+    line-height: 1.35 !important;
+  }
+
+  .compact-list li {
+    font-size: 8pt !important;
+    line-height: 1.35 !important;
+    margin-bottom: 0.5mm !important;
+  }
+
+  /* Layout compaction */
+  .two-col {
+    gap: 3mm !important;
+  }
+
+  .scope-grid {
+    gap: 1.5mm !important;
+  }
+
+  .scope-item {
+    font-size: 7.5pt !important;
+    padding: 1.5mm 2mm !important;
+  }
+
+  .agenda-grid {
+    gap: 1.5mm !important;
+  }
+
+  .agenda-item {
+    font-size: 8pt !important;
+    padding: 2mm 2.5mm !important;
+  }
+
+  .kpi-grid {
+    gap: 2mm !important;
+  }
+
+  .kpi-card {
+    padding: 2mm !important;
+  }
+
+  .kpi-card .kpi-value {
+    font-size: 11pt !important;
+  }
+
+  .kpi-card .kpi-label {
+    font-size: 6.5pt !important;
+  }
+
+  .report-sections {
+    gap: 3mm !important;
+  }
+
+  .report-list li {
+    font-size: 7.5pt !important;
+  }
+
+  .stakeholder-level {
+    margin-bottom: 2mm !important;
+  }
+
+  .outcome-grid {
+    gap: 2mm !important;
+  }
+
+  .outcome-card {
+    padding: 2mm !important;
+  }
+
+  .outcome-card h4 {
+    font-size: 8pt !important;
+  }
+
+  .outcome-card p {
+    font-size: 6.5pt !important;
+  }
+
+  /* Animations off — everything visible */
+  .anim-item {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  /* ── Professional print footer ── */
+  .slide-footer {
+    display: flex !important;
+    flex-shrink: 0 !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    padding: 1.5mm 8mm !important;
+    margin: 0 !important;
+    min-height: 9mm !important;
+    max-height: 9mm !important;
+    background: linear-gradient(90deg, #003d6b 0%, #005da4 100%) !important;
+    color: #fff !important;
+    font-size: 6.5pt !important;
+    page-break-before: avoid !important;
+    break-before: avoid !important;
+  }
+
+  .slide-footer-dark {
+    background: linear-gradient(90deg, #003d6b 0%, #005da4 100%) !important;
+  }
+
+  .footer-logo {
+    height: 14px !important;
+  }
+
+  .footer-logo-bank {
+    height: 16px !important;
+  }
+
+  .footer-text {
+    font-size: 6pt !important;
+  }
+
+  .footer-confidential {
+    font-size: 6pt !important;
+    letter-spacing: 0.06em !important;
+  }
+
+  .print-slide-num {
+    font-size: 6.5pt !important;
+    font-weight: 700 !important;
+    color: rgba(255, 255, 255, 0.95) !important;
+    letter-spacing: 0.04em !important;
+  }
+
+  /* Mockup slide print footer */
+  .print-mockup-footer {
+    display: flex !important;
+    flex-shrink: 0 !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    padding: 1.5mm 6mm !important;
+    background: linear-gradient(90deg, #003d6b, #005da4) !important;
+    color: #fff !important;
+    font-size: 6pt !important;
+    min-height: 8mm !important;
+  }
+
+  .print-mockup-footer img {
+    height: 12px !important;
+  }
+
+  /* ── UI mockup slides ── */
+  .slide.print-scaled-mockup .slide-inner-mockup {
+    overflow: hidden !important;
+  }
+
+  .slide.print-scaled-mockup .ui-mockup {
+    transform-origin: top left !important;
+  }
+
+  .ui-mockup {
+    max-height: none !important;
+    box-shadow: none !important;
+    border: 0.5pt solid #94a3b8 !important;
+    border-radius: 2px !important;
+    page-break-inside: avoid !important;
+    background: #f8fafc !important;
+  }
+
+  .ui-mockup.app-shell {
+    display: grid !important;
+    grid-template-columns: 105px minmax(0, 1fr) !important;
+  }
+
+  .app-sidebar {
+    background: linear-gradient(180deg, #0c2d52, #082a75) !important;
+  }
+
+  .app-body {
+    overflow: hidden !important;
+  }
+
+  .payment-rows {
+    overflow: hidden !important;
+    max-height: none !important;
+  }
+
+  .dashboard-compact .highlights-row {
+    display: none !important;
+  }
+
+  .dashboard-compact .dashboard-bottom .ui-panel:first-child,
+  .dashboard-compact .dashboard-bottom .ui-panel:last-child {
+    display: none !important;
+  }
+
+  /* Title & thank-you slides */
+  .main-title {
+    font-size: 22pt !important;
+  }
+
+  .scheme-name {
+    font-size: 11pt !important;
+  }
+
+  .title-badge {
+    font-size: 7pt !important;
+  }
+
+  .end-content h2 {
+    font-size: 28pt !important;
+  }
+
+  /* Prevent awkward breaks */
+  h2, h3, .section-tag {
+    page-break-after: avoid !important;
+  }
+
+  .ui-table tr {
+    page-break-inside: avoid !important;
+  }
+
+  .flip-card .flip-back {
+    display: none !important;
+  }
+
+  .flip-card .flip-front {
+    transform: none !important;
+    position: relative !important;
+  }
+
+  /* Scaled content wrapper */
+  .slide-inner.print-scaled {
+    transform-origin: top center !important;
+  }
+}
+
+/* ── On-screen layout while preparing PDF (before print dialog) ── */
+body.printing-pdf .nav-controls,
+body.printing-pdf .toolbar,
+body.printing-pdf .keyboard-hint,
+body.printing-pdf .progress-bar,
+body.printing-pdf .sidebar,
+body.printing-pdf .sidebar-overlay,
+body.printing-pdf .slide-dots,
+body.printing-pdf .toast-container,
+body.printing-pdf .detail-modal,
+body.printing-pdf .particle-canvas,
+body.printing-pdf .platform-screen-nav {
+  display: none !important;
+}
+
+body.printing-pdf {
+  overflow: auto !important;
+  background: #64748b !important;
+}
+
+body.printing-pdf .presentation {
+  position: static !important;
+  width: 100% !important;
+  height: auto !important;
+  overflow: visible !important;
+}
+
+body.printing-pdf .slides-container {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  gap: 12px !important;
+  padding: 12px 0 !important;
+  height: auto !important;
+}
+
+body.printing-pdf.print-all-slides .slide,
+body.printing-pdf:not(.print-current-slide) .slide {
+  position: relative !important;
+  display: flex !important;
+  flex-direction: column !important;
+  width: 297mm !important;
+  height: 210mm !important;
+  max-height: 210mm !important;
+  overflow: hidden !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: none !important;
+  background: #fff !important;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2) !important;
+}
+
+body.printing-pdf.print-current-slide .slide:not(.active) {
+  display: none !important;
+}
+
+body.printing-pdf .slide-inner,
+body.printing-pdf .slide-inner-mockup {
+  flex: 1 1 auto !important;
+  min-height: 0 !important;
+  overflow: hidden !important;
+}
+
+body.printing-pdf .anim-item {
+  opacity: 1 !important;
+  transform: none !important;
+}

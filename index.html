@@ -10,6 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="screens.css">
+  <link rel="stylesheet" href="print.css">
 </head>
 <body>
   <canvas id="particleCanvas" class="particle-canvas" aria-hidden="true"></canvas>
@@ -27,6 +28,12 @@
       </button>
       <span class="toolbar-title" id="toolbarTitle">Title</span>
       <div class="toolbar-actions">
+        <button class="toolbar-btn" id="pdfBtn" aria-label="Export to PDF" title="Export to PDF (D) — Landscape, Margins None, Background ON">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>
+        </button>
+        <button class="toolbar-btn" id="exportBtn" aria-label="Export to Excel" title="Export to Excel (E)">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 17v2a2 2 0 002 2h12a2 2 0 002-2v-2"/></svg>
+        </button>
         <button class="toolbar-btn" id="autoplayBtn" aria-label="Toggle autoplay" title="Autoplay (P)">
           <svg class="icon-play" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
           <svg class="icon-pause hidden" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/></svg>
@@ -572,6 +579,7 @@
               </ol>
             </div>
           </div>
+          <button type="button" class="btn-export-excel btn-export-lg" data-export="full" style="margin-top:0.75rem">⬇ Export All Reports to Excel</button>
         </div>
       </section>
 
@@ -603,6 +611,10 @@
                 <li>Division / District / Taluka / Village Performance Reports</li>
               </ol>
             </div>
+          </div>
+          <div class="export-actions-bar">
+            <button type="button" class="btn-export-excel" data-export="reconciliation">⬇ Export Reconciliation Report</button>
+            <button type="button" class="btn-export-excel" data-export="payments">⬇ Export Beneficiary Payments</button>
           </div>
         </div>
       </section>
@@ -718,6 +730,11 @@
           <span class="section-tag">Section 11</span>
           <h2>Platform Screen Designs</h2>
           <p class="lead-text">Interactive UI mockups — all screens are linked with shared Maharashtra beneficiary data. Click any card or use sidebar navigation inside screens to drill down.</p>
+          <div class="export-actions-bar">
+            <button type="button" class="btn-export-excel btn-export-lg" data-export="full">⬇ Download Complete MIS Workbook (Excel)</button>
+            <button type="button" class="btn-export-pdf btn-export-lg" data-pdf="all">📄 Download Full Presentation (PDF)</button>
+            <span class="export-hint">PDF: 25 slides (1 per page) · Enable <strong>Background graphics</strong> · Margins: <strong>None</strong> · Layout: <strong>Landscape</strong></span>
+          </div>
           <div class="screen-preview-grid">
             <button type="button" class="screen-preview-card interactive-card" data-goto="19"><span class="sp-icon">📊</span><h4>Executive Dashboard</h4><p>State summary, fund flow &amp; analytics</p></button>
             <button type="button" class="screen-preview-card interactive-card" data-goto="20"><span class="sp-icon">🏦</span><h4>SNA Monitoring</h4><p>Fund position &amp; nodal account balances</p></button>
@@ -772,7 +789,10 @@
             <div class="app-main">
               <header class="app-header">
                 <div><h3>Dashboard</h3><p>पुण्यश्लोक अहिल्यादेवी होळकर शेतकरी कर्जमुक्ती योजना – 2026</p></div>
-                <div class="header-meta"><span>Last Updated</span><strong data-last-updated>12 Jun 2026, 10:30 AM</strong></div>
+                <div class="header-actions">
+                  <button type="button" class="btn-export-excel" data-export="dashboard">⬇ Export Excel</button>
+                  <div class="header-meta"><span>Last Updated</span><strong data-last-updated>12 Jun 2026, 10:30 AM</strong></div>
+                </div>
               </header>
               <div class="app-body">
                 <div class="stat-row">
@@ -858,7 +878,10 @@
             <div class="app-main">
               <header class="app-header">
                 <div><h3>SNA Account Monitoring</h3><p>Scheme Fund Movement &amp; Balances — June 2026</p></div>
-                <div class="header-meta"><span>Account</span><strong>SNA-MAHA-LW-2026-001</strong></div>
+                <div class="header-actions">
+                  <button type="button" class="btn-export-excel" data-export="sna">⬇ Export Excel</button>
+                  <div class="header-meta"><span>Account</span><strong>SNA-MAHA-LW-2026-001</strong></div>
+                </div>
               </header>
               <div class="app-body">
                 <div class="sna-grid">
@@ -926,7 +949,10 @@
                 <div class="legend-card"><div class="lc-icon">🪪</div><h5>Aadhaar</h5></div>
                 <div class="legend-card"><div class="lc-icon">🔗</div><h5>UTR / Reference</h5></div>
               </div>
-              <div class="payment-table-header">📋 PAYMENT DETAILS — <span id="paymentCount">12 records</span> · Click row for details · Double-click for transactions</div>
+              <div class="payment-table-header">
+                <span>📋 PAYMENT DETAILS — <span id="paymentCount">12 records</span></span>
+                <button type="button" class="btn-export-excel" data-export="payments">⬇ Export Excel</button>
+              </div>
               <div class="col-icon-row"><span>#</span><span>Farmer Name</span><span>District</span><span>Amount (₹)</span><span>Aadhaar</span><span>UTR No.</span><span>Status</span><span>Loan A/c</span></div>
               <div class="payment-rows" id="paymentRows"></div>
               <div class="payment-footer-notes">
@@ -967,6 +993,9 @@
             <div class="app-main">
               <header class="app-header">
                 <div><h3>Transaction Search</h3><p>Search by Beneficiary ID, Name, UTR or Loan Account — <strong id="txResultCount">12 record(s)</strong></p></div>
+                <div class="header-actions">
+                  <button type="button" class="btn-export-excel" data-export="transactions">⬇ Export Excel</button>
+                </div>
               </header>
               <div class="search-bar-ui">
                 <div class="search-field-ui"><label>Beneficiary ID</label><input type="text" placeholder="BEN-2026-XXXXX" id="searchBenId"></div>
@@ -1012,6 +1041,9 @@
             <div class="app-main">
               <header class="app-header">
                 <div><h3>PFMS &amp; Exception Dashboard</h3><p>Daily Reconciliation Summary — 12 Jun 2026</p></div>
+                <div class="header-actions">
+                  <button type="button" class="btn-export-excel" data-export="reconciliation">⬇ Export Excel</button>
+                </div>
               </header>
               <div class="recon-tabs-ui">
                 <button type="button" class="recon-tab-btn active" data-recon-tab="pfms">🏛️ PFMS Reconciliation</button>
@@ -1094,12 +1126,15 @@
 
     <!-- Keyboard hint -->
     <div class="keyboard-hint" id="keyboardHint">
-      <kbd>←</kbd> <kbd>→</kbd> Navigate · <kbd>M</kbd> Menu · <kbd>O</kbd> Overview · <kbd>F</kbd> Fullscreen · <kbd>P</kbd> Autoplay · Click cards to interact
+      <kbd>←</kbd> <kbd>→</kbd> Navigate · <kbd>M</kbd> Menu · <kbd>O</kbd> Overview · <kbd>F</kbd> Fullscreen · <kbd>P</kbd> Autoplay · <kbd>E</kbd> Excel · <kbd>D</kbd> PDF · Click cards to interact
     </div>
   </div>
 
+  <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
   <script src="platform-data.js"></script>
   <script src="platform-ui.js"></script>
+  <script src="platform-export.js"></script>
+  <script src="pdf-export.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

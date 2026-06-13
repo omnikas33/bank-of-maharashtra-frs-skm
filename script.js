@@ -26,6 +26,8 @@
   const modalLogo = document.getElementById('modalLogo');
   const toastContainer = document.getElementById('toastContainer');
   const autoplayBtn = document.getElementById('autoplayBtn');
+  const exportBtn = document.getElementById('exportBtn');
+  const pdfBtn = document.getElementById('pdfBtn');
   const fullscreenBtn = document.getElementById('fullscreenBtn');
   const particleCanvas = document.getElementById('particleCanvas');
 
@@ -185,6 +187,16 @@
         animateUiCounters,
         animateTrendChart
       });
+    }
+    if (window.PlatformExport) {
+      PlatformExport.init({
+        showToast,
+        getState: () => window.PlatformUI?.getState?.() || {},
+        filteredBeneficiaries: () => window.PlatformUI?.filteredBeneficiaries?.() || window.PLATFORM_DATA?.beneficiaries || []
+      });
+    }
+    if (window.PdfExport) {
+      PdfExport.init({ showToast });
     }
     updateUI(false);
     requestAnimationFrame(() => triggerSlideAnimations());
@@ -716,6 +728,28 @@
   sidebarOverlay.addEventListener('click', closeSidebar);
   fullscreenBtn.addEventListener('click', toggleFullscreen);
   autoplayBtn.addEventListener('click', toggleAutoplay);
+  if (exportBtn) {
+    exportBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (window.PlatformExport) {
+        PlatformExport.exportForSlideIndex(currentIndex);
+      } else {
+        showToast('Export module not loaded', 2000);
+      }
+    });
+  }
+  if (pdfBtn) {
+    pdfBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (e.shiftKey && window.PdfExport) {
+        PdfExport.exportCurrent();
+      } else if (window.PdfExport) {
+        PdfExport.exportAll();
+      } else {
+        showToast('PDF export not loaded', 2000);
+      }
+    });
+  }
 
   document.addEventListener('keydown', (e) => {
     if (detailModal.classList.contains('open')) {
@@ -776,11 +810,29 @@
       case 'P':
         toggleAutoplay();
         break;
+      case 'e':
+      case 'E':
+        if (!e.ctrlKey && !e.metaKey) {
+          e.preventDefault();
+          if (window.PlatformExport) PlatformExport.exportForSlideIndex(currentIndex);
+        }
+        break;
+      case 'd':
+      case 'D':
+        if (!e.ctrlKey && !e.metaKey) {
+          e.preventDefault();
+          if (e.shiftKey && window.PdfExport) {
+            PdfExport.exportCurrent();
+          } else if (window.PdfExport) {
+            PdfExport.exportAll();
+          }
+        }
+        break;
     }
   });
 
   document.getElementById('slidesContainer').addEventListener('click', (e) => {
-    if (e.target.closest('button, a, input, select, .flip-card, .accordion-item, .interactive-card, .tab-btn, .detail-modal, .logo-btn, .interactive-logo, .payment-row, .app-nav, .btn-apply, .btn-search, .ui-mockup')) return;
+    if (e.target.closest('button, a, input, select, .flip-card, .accordion-item, .interactive-card, .tab-btn, .detail-modal, .logo-btn, .interactive-logo, .payment-row, .app-nav, .btn-apply, .btn-search, .btn-export-excel, .btn-export-pdf, .ui-mockup')) return;
     const rect = e.currentTarget.getBoundingClientRect();
     const x = e.clientX - rect.left;
     if (x > rect.width * 0.7) nextSlide();
